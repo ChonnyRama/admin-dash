@@ -1,56 +1,160 @@
-*{
+*,
+*::before,
+*::after{
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
+.project-card,
+.announcement-container,
+.trend-container,
+.header {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+:root {
+    --input-border: #8b8a8b;
+    --input-focus-h: 245;
+    --input-focus-s: 100%;
+    --input-focus-l: 42%;
+  }
+
 .container {
-    text-align: center;
+    font-size: 16px;
     width: 100vw;
     height: 100vh;
     display: grid;
 
-    grid-template-columns: 1fr 4fr;
-    gap: 5px 5px;
+    grid-template-columns: 1fr 4fr 1fr;
+    grid-template-rows: 200px;
+
 }
 
 .container div{
     padding: 15px;
-    font-size: 10px;
     font-family: Helvetica;
     font-weight: bold;
-    color: black;
-    background-color: lightblue;
+
 }
 
 .sidebar {
     grid-row: 1 / 4;
 
+    background-color: rgb(88, 172, 211);
+    color: white;
+
     display: grid;
-    justify-content: start;
-    align-items: start;
+    align-content: start;
+    gap: 50px;
+}
+
+.sidebar .title {
+    font-size: 2rem;
 }
 
 ul {
     list-style-type: none;
 }
 
-.header {
-    grid-column: 2/3;
+.sidebar ul {
     display: grid;
-    grid-template-rows: 50px 100px;
+    justify-content: start;
+    gap:10px;
+    font-size: 1.5rem;
+}
+
+.header {
+    grid-column: 2/4;
+    display: grid;
+    grid-template-rows: 50px 1fr;
+    align-items: center;
 }
 
 .header .header-row {
-    height:100px;
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+div[class="searchbar"] {
+    flex-basis: 70%;
+    padding-left: 30px; /* Adjust padding to make space for the icon */
+    background-image: url(images/magnify.svg);
+    background-size: 20px 20px; /* Adjust size as per your SVG dimensions */
+    background-repeat: no-repeat;
+    background-position: 0px 19px; /* Adjust position of the icon */
+
+    transform: translateY(-.075em);
+}
+
+.searchbar input[type="text"] {
+    width: 100%;
+    font-family: inherit;
+    padding: 0.25em 0.5em;
+    background-color: #fff;
+    border: 2px solid var(--input-border);
+    border-radius: 4px;
+}
+
+.searchbar input[type="text"]:focus {
+    border-color: hsl(var(--input-focus-h), var(--input-focus-s), var(--input-focus-l));
+    box-shadow: 0 0 0 3px hsla(var(--input-focus-h), var(--input-focus-s), calc(var(--input-focus-l) +
+          40%), 0.8);
+    transition: 180ms box-shadow ease-in-out;      
+  }
+
+.header-row .user-info {
+    font-size: 1.2em;
+    padding-left: 50px;
+    background-image: url(images/zodiac-cancer.svg);
+    background-repeat: no-repeat;
+    background-size: 25px 25px;
+    background-position: 0 center;
+}
+
+.user-info > div {
+    padding-bottom: 0;
+    padding-top: 0;
+}
+
+.user-info .greeting {
+    font-size: 1rem;
+}
+
+.header-row.two .user-info {
+    background-size: 50px 50px;
+}
+
+.header-row.two .user-info .name {
+    font-size: 1.5rem;
+}
+
+.actions {
+    display: flex;
+    gap: 20px;
+}
+
+.actions button {
+    font: inherit;
+    font-size: .9rem;
+    color: white;
+    height: 30px;
+    width: 100px;
+    background-color: rgb(88, 172, 211);
+    border: none;
+    border-radius: 20px;
 }
 
 .content {
     grid-row: 2/4;
-    grid-column: 2/3;
+    grid-column: 2/4;
+    background-color: rgba(231, 234, 234, 0.763);
 
     display: grid;
     grid-template-columns: 4fr 1fr;
+    grid-template-rows: 370px auto;
 }
 
 .content .projects-container {
@@ -65,12 +169,83 @@ ul {
     gap:15px;
 }
 
+.projects div[class="project-card"] {
+    background-color: white;
+    border-radius: 10px;
+    border-left: 10px solid rgb(230, 143, 71);
+    max-height: 250px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.project-card div[class="project-description"] {
+    padding: 0px 15px;
+    margin-top: -10px;
+    font-weight: 400;
+    font-size: .8rem;
+}
+
+.project-card div[class="project-footer"] {
+    align-self: flex-end;
+    padding: 20px 20px;
+}
+
+.project-footer button {
+    width: 25px;
+    height: 25px;
+    background-size: contain;
+    background-position: center;
+
+    border: none;
+    padding: 0;
+    background-color: transparent;
+}
+
+.project-button1 {
+    background-image: url(images/star-plus-outline.svg);
+}
+
+.project-button2 {
+    background-image: url(images/eye-plus-outline.svg);
+}
+
+.project-button3 {
+    background-image: url(images/share-variant-outline.svg);
+}
+
 .content .announcements {
     grid-row: 1;
     grid-column: 2;
-
-    max-height: 400px;
 }
+
+.announcements .announcement-container,
+.trending .trend-container {
+    background-color: white;
+    width: 250px;
+    border-radius: 10px;
+    overflow: hidden;
+
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.announcement-container div,
+.trend-container {
+    flex: 1;
+    overflow: hidden;
+}
+
+div[class="announcement"] {
+    font-size: .6rem;
+    font-weight: 100;
+    margin-top: 5px;
+    padding:0 0 10px 0;
+    border-bottom: 1px solid rgb(212, 210, 210);
+}
+
+
 
 .content .trending{
     grid-row: 2;
@@ -79,6 +254,20 @@ ul {
 }
 
 .trending .trend {
+    padding-left: 50px;
+    background-image: url(images/account-circle.svg);
+    background-repeat: no-repeat;
+    background-size: 50px 50px;
+    background-position: 0 center;
     display: flex;
-    height: 50px;
+}
+
+.trend div {
+    font-weight: 100;
+    font-size: .9rem;
+    padding: 0;
+}
+
+.trend > div[class="trend-handle"] {
+    font-weight: 600;
 }
